@@ -16,7 +16,7 @@ import slideshare
 
 from collective.slideshare import slideshareMessageFactory as _
 from collective.slideshare.interfaces import IPostToSlideshareSchema, ISlideshareSettings
-from collective.slideshare import KEY
+from collective.slideshare.config import KEY
 
 logger = logging.getLogger('collective.slideshare')
 
@@ -101,7 +101,7 @@ class PostToSlideshare(formbase.PageForm):
         annotations[KEY] = sl_id
         self.request.response.redirect(self.next_url)
         msg = _(u"Slideshow uploaded")
-        IStatusMessage(self.request).addStatusMessage(msg, type='error')
+        IStatusMessage(self.request).addStatusMessage(msg, type='info')
 
 
     @form.action('Cancel')

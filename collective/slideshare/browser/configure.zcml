@@ -24,14 +24,14 @@
         />
 
     <!-- Files -->
-      <!--browser:page
+      <browser:page
           for="Products.ATContentTypes.interfaces.IATFile"
           name="slideshare_view.html"
           class=".views.SlideshareFileView"
           template="slidesharefileview.pt"
           allowed_interface=".views.ISlideshareFileView"
           permission="zope2.View"
-          /-->
+          />
 
       <browser:page
           for="Products.ATContentTypes.interfaces.IATFile"

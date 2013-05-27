@@ -56,6 +56,26 @@ class ISlideshareSettings(Interface):
         default=False,
         )
 
+
+    width = schema.TextLine(
+        title=_(u"Width"),
+        description=_(
+            u"Choose the width of the slides, "
+            u"specified as an absolute value (e.g. '450px' or '15em'), "
+            u"or relative (e.g. '100%') size."
+        ),
+        required=False)
+
+    height = schema.TextLine(
+        title=_(u"Height"),
+        description=_(
+            u"Choose the height of the slides, "
+            u"specified as an absolute value (e.g. '450px' or '15em'), "
+            u"or relative (e.g. '100%') size."
+        ),
+        required=False)
+
+
     @invariant
     def validateUserPwd(data):
         if data.push_on_publish:
