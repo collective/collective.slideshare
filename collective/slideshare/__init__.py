@@ -13,6 +13,7 @@ from Products.CMFCore import utils
 
 slideshareMessageFactory = MessageFactory('collective.slideshare')
 
+KEY = 'collective.slideshare.slideshow_id'
 
 def initialize(context):
     """Initializer called when used as a Zope 2 product.

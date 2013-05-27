@@ -33,7 +33,7 @@ class ISlideshareSettings(Interface):
         required = True,
         )
 
-    items_pp = schema.Choice(title=_(u'Post as user policy'),
+    user_policy = schema.Choice(title=_(u'Post as user policy'),
          description=_(u"Select if a user has to supply his credentials"),
          vocabulary=vocabularies.user_policy_vocabulary,
          default=u'fixed',
@@ -63,7 +63,7 @@ class ISlideshareSettings(Interface):
                 raise MissingUserPwd(_(u"You must provide a username and password to upload to slideshare."))
 
 
-class PostToSlideshareSchema(Interface):
+class IPostToSlideshareSchema(Interface):
     """ get username/password to post to slideshare """
 
     username = schema.TextLine(title=_(u"Username"),

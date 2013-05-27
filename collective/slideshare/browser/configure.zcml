@@ -5,6 +5,7 @@
     i18n_domain="collective.slideshare">
 
   <include package="plone.app.contentmenu" />
+  <include package="Products.CMFCore" file="permissions.zcml" />
 
   <!-- -*- extra stuff goes here -*- -->
 
@@ -22,5 +23,38 @@
         permission="cmf.ManagePortal"
         />
 
+    <!-- Files -->
+      <!--browser:page
+          for="Products.ATContentTypes.interfaces.IATFile"
+          name="slideshare_view.html"
+          class=".views.SlideshareFileView"
+          template="slidesharefileview.pt"
+          allowed_interface=".views.ISlideshareFileView"
+          permission="zope2.View"
+          /-->
+
+      <browser:page
+          for="Products.ATContentTypes.interfaces.IATFile"
+          name="slideshare_post.html"
+          class=".forms.PostToSlideshare"
+          permission="cmf.ModifyPortalContent"
+          />
+
+    <!-- Links
+      <browser:page
+          for="Products.ATContentTypes.interfaces.IATLink"
+          name="slideshare_view.html"
+          class=".views.SlideShareLinkView"
+          template="slidesharefileview.pt"
+          allowed_interface=".views.ISlideShareLinkView"
+          permission="zope2.View"
+          />
+      <browser:page
+          for="Products.ATContentTypes.interfaces.IATLink"
+          name="slideshare_getid.html"
+          class=".forms.getSlideshareId"
+          permission="cmf.ModifyPortalContent"
+          />
+    -->
 
 </configure>
