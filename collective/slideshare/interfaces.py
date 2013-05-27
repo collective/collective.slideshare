@@ -23,12 +23,12 @@ class ISlideshareSettings(Interface):
     configuration registry and obtainable via plone.registry.
     """
 
-    api_key = schema.String(title=_(u"API Key"),
+    api_key = schema.TextLine(title=_(u"API Key"),
         description = _(u"Apply for an Key at http://www.slideshare.net/developers/applyforapi"),
         required = True,
         )
 
-    shared_secret = schema.String(title=_(u"Shared Secret"),
+    shared_secret = schema.TextLine(title=_(u"Shared Secret"),
         description = _(u""),
         required = True,
         )
@@ -40,16 +40,15 @@ class ISlideshareSettings(Interface):
          required=True,
          )
 
-    username = schema.String(title=_(u"User"),
+    username = schema.TextLine(title=_(u"User"),
         description = _(u"Username of the user you post to slideshare as"),
         required = False,
         )
 
-    password = schema.String(title=_(u"Password"),
+    password = schema.TextLine(title=_(u"Password"),
         description = _(u"password of the user you post to slideshare as"),
         required = False,
         )
-
 
     push_on_publish = schema.Bool(title=_(u"Post to Slideshare on publish"),
         description=_(u"For this to work the User and Password above must be filled in"),
@@ -57,10 +56,22 @@ class ISlideshareSettings(Interface):
         default=False,
         )
 
-
-
     @invariant
     def validateUserPwd(data):
         if data.push_on_publish:
             if not(data.username) and not(data.password):
                 raise MissingUserPwd(_(u"You must provide a username and password to upload to slideshare."))
+
+
+class PostToSlideshareSchema(Interface):
+    """ get username/password to post to slideshare """
+
+    username = schema.TextLine(title=_(u"Username"),
+        description = _(u"Your slideshare username"),
+        required = False,
+        )
+
+    password = schema.TextLine(title=_(u"Password"),
+        description = _(u"Your slideshare password"),
+        required = False,
+        )

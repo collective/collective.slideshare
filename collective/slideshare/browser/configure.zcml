@@ -8,4 +8,19 @@
 
   <!-- -*- extra stuff goes here -*- -->
 
+    <browser:resource
+        name="slideshare.png"
+        file="slideshare.png"
+        layer="..interfaces.ISlideshareLayer"
+        />
+
+    <!-- Control panel -->
+    <browser:page
+        name="slideshare-settings.html"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        class=".controlpanel.SlideshareControlPanel"
+        permission="cmf.ManagePortal"
+        />
+
+
 </configure>

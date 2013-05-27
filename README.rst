@@ -1,17 +1,12 @@
-.. contents::
+Intoduction
+=============
 
-.. Note!
-   -----
-   Update the following URLs to point to your:
+collective.slideshare does not add any new contenttypes. It adds new
+views for your `Link` and `File` contenttypes.
 
-   - code repository
-   - bug tracker
-   - questions/comments feedback mail
-   (do not set a real mail, to avoid spams)
 
-   Or remove it if not used.
 
-- Code repository: http://svn.somewhere.com/...
-- Questions and comments to somemailing_list
-- Report bugs at http://bug.somewhere.com/..
+- Code repository: https://github.com/collective/collective.slideshare
+- Questions and comments to product-developers@lists.plone.org
+- Report bugs at https://github.com/collective/collective.slideshare/issues
 
