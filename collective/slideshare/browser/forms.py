@@ -15,7 +15,9 @@ from Products.statusmessages.interfaces import IStatusMessage
 import slideshare
 
 from collective.slideshare import slideshareMessageFactory as _
-from collective.slideshare.interfaces import IPostToSlideshareSchema, ISlideshareSettings
+from collective.slideshare.interfaces import IPostToSlideshareSchema
+from collective.slideshare.interfaces import ISlideshareSettings
+from collective.slideshare.interfaces import IGetSlideshareIdSchema
 from collective.slideshare.config import KEY
 
 logger = logging.getLogger('collective.slideshare')
@@ -103,6 +105,51 @@ class PostToSlideshare(formbase.PageForm):
         msg = _(u"Slideshow uploaded")
         IStatusMessage(self.request).addStatusMessage(msg, type='info')
 
+
+class GetSlideshareId(formbase.PageForm):
+    form_fields = form.FormFields(IGetSlideshareIdSchema)
+    label = _(u'Get embed information from Slideshare')
+    description = _(u'')
+
+    def __init__(self, *args, **kwargs):
+        registry = getUtility(IRegistry)
+        self.settings = registry.forInterface(ISlideshareSettings)
+        super(GetSlideshareId, self).__init__(*args, **kwargs)
+
+
+
+    @property
+    def next_url(self):
+        url = self.context.absolute_url()
+        url += '/view'
+        return url
+
+
+    @form.action('Submit')
+    def actionSubmit(self, action, data):
+        url = self.context.absolute_url()
+        if self.settings.api_key and self.settings.shared_secret:
+            api = slideshare.SlideshareAPI(self.settings.api_key,
+                self.settings.shared_secret)
+        else:
+            msg = _(u"Slideshare API_KEY or SHARED_SECRET missing")
+            IStatusMessage(self.request).addStatusMessage(msg, type='error')
+            self.request.response.redirect(self.next_url)
+            return
+        sls = api.get_slideshow(slideshow_url=self.context.getRemoteUrl())
+        title = sls['Slideshow'].get('Title')
+        description = sls['Slideshow'].get('Description')
+        #tags = sls['Slideshow'].get('Tags')
+        sl_id = sls['Slideshow']['ID']
+        annotations = IAnnotations(self.context)
+        annotations[KEY] = sl_id
+        if title and not self.context.Title():
+            self.context.setTitle(title)
+        if description and not self.context.Description():
+            self.context.setDescription(description)
+        self.request.response.redirect(self.next_url)
+        msg = _(u"Slideshow embedded")
+        IStatusMessage(self.request).addStatusMessage(msg, type='info')
 
     @form.action('Cancel')
     def actionCancel(self, action, data):

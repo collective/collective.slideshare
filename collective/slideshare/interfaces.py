@@ -64,6 +64,7 @@ class ISlideshareSettings(Interface):
             u"specified as an absolute value (e.g. '450px' or '15em'), "
             u"or relative (e.g. '100%') size."
         ),
+        default=u"427px",
         required=False)
 
     height = schema.TextLine(
@@ -73,6 +74,7 @@ class ISlideshareSettings(Interface):
             u"specified as an absolute value (e.g. '450px' or '15em'), "
             u"or relative (e.g. '100%') size."
         ),
+        default=u"356px",
         required=False)
 
 
@@ -95,3 +97,7 @@ class IPostToSlideshareSchema(Interface):
         description = _(u"Your slideshare password"),
         required = False,
         )
+
+class IGetSlideshareIdSchema(Interface):
+    """ Empty form, we need only the actions"""
+

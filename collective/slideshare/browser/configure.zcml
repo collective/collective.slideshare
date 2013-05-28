@@ -27,9 +27,9 @@
       <browser:page
           for="Products.ATContentTypes.interfaces.IATFile"
           name="slideshare_view.html"
-          class=".views.SlideshareFileView"
-          template="slidesharefileview.pt"
-          allowed_interface=".views.ISlideshareFileView"
+          class=".views.SlideshareView"
+          template="slideshareview.pt"
+          allowed_interface=".views.ISlideshareView"
           permission="zope2.View"
           />
 
@@ -40,21 +40,21 @@
           permission="cmf.ModifyPortalContent"
           />
 
-    <!-- Links
+    <!-- Links -->
       <browser:page
           for="Products.ATContentTypes.interfaces.IATLink"
           name="slideshare_view.html"
-          class=".views.SlideShareLinkView"
-          template="slidesharefileview.pt"
-          allowed_interface=".views.ISlideShareLinkView"
+          class=".views.SlideshareView"
+          template="slideshareview.pt"
+          allowed_interface=".views.ISlideshareView"
           permission="zope2.View"
           />
+
       <browser:page
           for="Products.ATContentTypes.interfaces.IATLink"
           name="slideshare_getid.html"
-          class=".forms.getSlideshareId"
+          class=".forms.GetSlideshareId"
           permission="cmf.ModifyPortalContent"
           />
-    -->
 
 </configure>
