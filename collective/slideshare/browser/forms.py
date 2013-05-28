@@ -93,7 +93,10 @@ class PostToSlideshare(formbase.PageForm):
                 self.settings.api_key, self.settings.shared_secret,
                 username, password, self.context)
         self.request.response.redirect(self.next_url)
-        IStatusMessage(self.request).addStatusMessage(msg, type='info')
+        msgtype = 'info'
+        if 'SlideShareServiceError' in msg:
+            msgtype = 'error'
+        IStatusMessage(self.request).addStatusMessage(msg, type=msgtype)
 
     @form.action('Cancel')
     def actionCancel(self, action, data):
@@ -103,7 +106,7 @@ class PostToSlideshare(formbase.PageForm):
 class GetSlideshareId(formbase.PageForm):
     form_fields = form.FormFields(IGetSlideshareIdSchema)
     label = _(u'Get embed information from Slideshare')
-    description = _(u'')
+    description = _(u'Get the code to embed the slideshow from slideshare')
 
     def __init__(self, *args, **kwargs):
         registry = getUtility(IRegistry)
@@ -134,7 +137,11 @@ class GetSlideshareId(formbase.PageForm):
             self.settings.api_key, self.settings.shared_secret,
             self.context)
         self.request.response.redirect(self.next_url)
-        IStatusMessage(self.request).addStatusMessage(msg, type='info')
+        msgtype = 'info'
+        if 'SlideShareServiceError' in msg:
+            msgtype = 'error'
+        IStatusMessage(self.request).addStatusMessage(msg, type=msgtype)
+
 
     @form.action('Cancel')
     def actionCancel(self, action, data):

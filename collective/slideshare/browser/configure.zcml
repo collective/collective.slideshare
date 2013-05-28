@@ -17,13 +17,21 @@
 
   <browser:menuItem
       title="SlideShare View"
-      for="Products.ATContentTypes.interface.IATTopic"
+      for="Products.ATContentTypes.interfaces.IATLink"
       menu="plone_displayviews"
       action="slideshare_view.html"
       description="Embedd SlideShare View"
       layer = "..interfaces.ISlideshareLayer"
       />
 
+  <browser:menuItem
+      title="SlideShare View"
+      for="Products.ATContentTypes.interfaces.IATFile"
+      menu="plone_displayviews"
+      action="slideshare_view.html"
+      description="Embedd SlideShare View"
+      layer = "..interfaces.ISlideshareLayer"
+      />
 
     <!-- Control panel -->
     <browser:page
