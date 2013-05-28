@@ -15,6 +15,16 @@
         layer="..interfaces.ISlideshareLayer"
         />
 
+  <browser:menuItem
+      title="SlideShare View"
+      for="Products.ATContentTypes.interface.IATTopic"
+      menu="plone_displayviews"
+      action="slideshare_view.html"
+      description="Embedd SlideShare View"
+      layer = "..interfaces.ISlideshareLayer"
+      />
+
+
     <!-- Control panel -->
     <browser:page
         name="slideshare-settings.html"

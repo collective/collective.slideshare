@@ -9,6 +9,7 @@ from plone.registry.interfaces import IRegistry
 
 from collective.slideshare.config import KEY, SLIDES_MIMETYPES
 from collective.slideshare.interfaces import ISlideshareSettings
+from collective.slideshare import slideshareMessageFactory as _
 
 class ISlideshareView(Interface):
     """
@@ -36,7 +37,7 @@ class SlideshareView(BrowserView):
         if IATFile.providedBy(self.context):
             return _("Download")
         elif IATLink.providedBy(self.context):
-            return self.context.getRemoteUrl()
+            return _("View it on SlideShare")
 
 
     def get_slid(self):

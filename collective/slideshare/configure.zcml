@@ -21,4 +21,24 @@
 
   <!-- -*- extra stuff goes here -*- -->
 
+  <!-- Event Subscribers -->
+  <subscriber
+    for="Products.ATContentTypes.interfaces.IATLink
+         Products.Archetypes.interfaces.IObjectInitializedEvent"
+    handler=".handlers.get_slideshare_id"
+    />
+
+  <subscriber
+    for="Products.ATContentTypes.interfaces.IATLink
+         Products.Archetypes.interfaces.IObjectEditedEvent"
+    handler=".handlers.get_slideshare_id"
+    />
+
+    <subscriber
+      for="Products.ATContentTypes.interfaces.IATFile
+        Products.CMFCore.interfaces.IActionSucceededEvent"
+      handler=".handlers.post_to_slideshare"
+      />
+
+
 </configure>

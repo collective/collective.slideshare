@@ -19,6 +19,7 @@ from collective.slideshare.interfaces import IPostToSlideshareSchema
 from collective.slideshare.interfaces import ISlideshareSettings
 from collective.slideshare.interfaces import IGetSlideshareIdSchema
 from collective.slideshare.config import KEY
+import collective.slideshare.utils
 
 logger = logging.getLogger('collective.slideshare')
 
@@ -88,23 +89,16 @@ class PostToSlideshare(formbase.PageForm):
             msg = _(u"Slideshare USERNAME or PASSWORD missing")
             IStatusMessage(self.request).addStatusMessage(msg, type='error')
             return
-        srcfile = dict(
-            filehandle=self.context.getFile().getIterator(),
-            filename=self.context.getFilename(),
-            mimetype=self.context.getContentType()
-            )
-        sls = api.upload_slideshow(username, password,
-                slideshow_title = self.context.Title(),
-                slideshow_srcfile = srcfile,
-                slideshow_description = self.context.Description(),
-                slideshow_tags = ','.join(self.context.Subject()))
-        sl_id = sls['SlideShowUploaded']['SlideShowID']
-        annotations = IAnnotations(self.context)
-        annotations[KEY] = sl_id
+        msg = collective.slideshare.utils.post_to_slideshare(
+                self.settings.api_key, self.settings.shared_secret,
+                username, password, self.context)
         self.request.response.redirect(self.next_url)
-        msg = _(u"Slideshow uploaded")
         IStatusMessage(self.request).addStatusMessage(msg, type='info')
 
+    @form.action('Cancel')
+    def actionCancel(self, action, data):
+        annotations = IAnnotations(self.context)
+        self.request.response.redirect(self.next_url)
 
 class GetSlideshareId(formbase.PageForm):
     form_fields = form.FormFields(IGetSlideshareIdSchema)
@@ -136,19 +130,10 @@ class GetSlideshareId(formbase.PageForm):
             IStatusMessage(self.request).addStatusMessage(msg, type='error')
             self.request.response.redirect(self.next_url)
             return
-        sls = api.get_slideshow(slideshow_url=self.context.getRemoteUrl())
-        title = sls['Slideshow'].get('Title')
-        description = sls['Slideshow'].get('Description')
-        #tags = sls['Slideshow'].get('Tags')
-        sl_id = sls['Slideshow']['ID']
-        annotations = IAnnotations(self.context)
-        annotations[KEY] = sl_id
-        if title and not self.context.Title():
-            self.context.setTitle(title)
-        if description and not self.context.Description():
-            self.context.setDescription(description)
+        msg = collective.slideshare.utils.get_slideshare_id(
+            self.settings.api_key, self.settings.shared_secret,
+            self.context)
         self.request.response.redirect(self.next_url)
-        msg = _(u"Slideshow embedded")
         IStatusMessage(self.request).addStatusMessage(msg, type='info')
 
     @form.action('Cancel')

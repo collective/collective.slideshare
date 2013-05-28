@@ -13,6 +13,9 @@ from collective.slideshare import vocabularies
 class MissingUserPwd(Invalid):
     __doc__ = _(u"You must provide a username and password for this to work")
 
+class RequiredUserPwd(Invalid):
+    __doc__ = _(u"You must provide a username and password for this to work")
+
 
 class ISlideshareLayer(IDefaultPloneLayer):
     """Marker interface that defines a Zope 3 browser layer.
@@ -46,7 +49,7 @@ class ISlideshareSettings(Interface):
         )
 
     password = schema.TextLine(title=_(u"Password"),
-        description = _(u"password of the user you post to slideshare as"),
+        description = _(u"Password of the user you post to slideshare as"),
         required = False,
         )
 
@@ -83,7 +86,8 @@ class ISlideshareSettings(Interface):
         if data.push_on_publish:
             if not(data.username) and not(data.password):
                 raise MissingUserPwd(_(u"You must provide a username and password to upload to slideshare."))
-
+            if user_policy == 'user':
+                raise RequiredUserPwd(_(u"If you require the user to supply his credentials, you cannot activate the upload on publish"))
 
 class IPostToSlideshareSchema(Interface):
     """ get username/password to post to slideshare """
