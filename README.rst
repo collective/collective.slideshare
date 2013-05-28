@@ -14,6 +14,7 @@ you will be prompted for those every time you upload a file to slideshare.
 You can obtain an API KEY at http://www.slideshare.net/developers/applyforapi
 
 You can specify a policy for this behaviour:
+
 * Always use the credentials provided, never prompt user for input
 * Always ask user for his credentials
 * Allow user to supply his credentials, if none are provided use the system credentials

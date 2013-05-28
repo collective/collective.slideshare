@@ -14,7 +14,12 @@ class MissingUserPwd(Invalid):
     __doc__ = _(u"You must provide a username and password for this to work")
 
 class RequiredUserPwd(Invalid):
-    __doc__ = _(u"You must provide a username and password for this to work")
+    __doc__ = _(u"If you require the user to supply his credentials, you cannot activate the upload on publish")
+
+class FixedUserPwd(Invalid):
+    __doc__ = _(u"If you always use the system credentials, you must provide a username and password")
+
+
 
 
 class ISlideshareLayer(IDefaultPloneLayer):
@@ -82,12 +87,29 @@ class ISlideshareSettings(Interface):
 
 
     @invariant
-    def validateUserPwd(data):
+    def validateUserPwdMissing(data):
         if data.push_on_publish:
-            if not(data.username) and not(data.password):
-                raise MissingUserPwd(_(u"You must provide a username and password to upload to slideshare."))
-            if user_policy == 'user':
-                raise RequiredUserPwd(_(u"If you require the user to supply his credentials, you cannot activate the upload on publish"))
+            if not(data.username and data.password):
+                raise MissingUserPwd(
+                    _(u"""You must provide a username and password
+                    if you want activate the upload on publish."""))
+
+    @invariant
+    def validateUserPwdRequired(data):
+        if data.push_on_publish:
+            if data.user_policy == 'user':
+                raise RequiredUserPwd(
+                    _(u"""If you require the user to supply his credentials,
+                    you cannot activate the upload on publish"""))
+
+    @invariant
+    def validateUserPwdfixed(data):
+        if data.user_policy == 'fixed':
+            if not(data.username and data.password):
+                raise FixedUserPwd(
+                    _(u"""If you always want to use the system credentials,
+                    you must provide a username and password"""))
+
 
 class IPostToSlideshareSchema(Interface):
     """ get username/password to post to slideshare """
