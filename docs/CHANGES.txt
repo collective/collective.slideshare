@@ -4,5 +4,6 @@ Changelog
 0.1 (xxxx-xx-xx)
 ----------------
 
+- initial release
 - Created recipe with ZopeSkel
   [Christian Ledermann]

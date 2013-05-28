@@ -40,8 +40,8 @@ Files
 When you upload a Presentation you can change the view to 'SlideShare View'.
 You will then be asked to provide your credentials to add this file to
 SlideShare_ and the presentation will be embedded in the page. At
-First you may see a 'This document has either been removed or made by
-its owner message'. This is to be expected as SlideShare_ needs a little
+First you may see a 'This document has either been removed or made private by
+its owner' message. This is to be expected as SlideShare_ needs a little
 time to convert the presentation. Refresh the page after a little while.
 
 
