@@ -29,8 +29,8 @@ to supply his own credentials.
 Links
 -----
 
-When you add a link to a SlideShare_ presentation the product retrives the
-slideshare_id from SlideShare_ and embedds the presentation in your page.
+When you add a link to a SlideShare_ presentation the product retrieves the
+slideshare_id from SlideShare_ and embeds the presentation in your page.
 You can (de)activate the 'SlideShare View' at any time.
 
 
