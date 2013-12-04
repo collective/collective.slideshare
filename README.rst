@@ -2,7 +2,7 @@ Intoduction
 =============
 
 collective.slideshare does not add any new contenttypes. It adds new
-views for your `Link` and `File` contenttypes.
+views for your `Link` and `File` (currently archetypes only) contenttypes.
 
 Configuration
 -------------
@@ -25,12 +25,12 @@ have to provide credentials and the policy must not require the user
 to supply his own credentials.
 
 
-
 Links
 -----
 
 When you add a link to a SlideShare_ presentation the product retrieves the
 slideshare_id from SlideShare_ and embeds the presentation in your page.
+Do NOT use the link given in the slideshare `<> Embed` option!
 You can (de)activate the 'SlideShare View' at any time.
 
 
@@ -44,7 +44,13 @@ First you may see a 'This document has either been removed or made private by
 its owner' message. This is to be expected as SlideShare_ needs a little
 time to convert the presentation. Refresh the page after a little while.
 
+Slideshow was removed from SlideShare_
+---------------------------------------
 
+When a presentation is removed from SlideShare_ you can simply change the
+view back to the default view. However this does not remove the id from
+the annotation. To remove the annotation you have to manually append
+`@@slideshare_removeid.html` to your objects url.
 
 
 - Code repository: https://github.com/collective/collective.slideshare

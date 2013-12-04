@@ -50,14 +50,11 @@ class PostToSlideshare(formbase.PageForm):
             pw.field.required = False
         super(PostToSlideshare, self).__init__(*args, **kwargs)
 
-
-
     @property
     def next_url(self):
         url = self.context.absolute_url()
         url += '/view'
         return url
-
 
     @form.action('Submit')
     def actionSubmit(self, action, data):
@@ -100,7 +97,8 @@ class PostToSlideshare(formbase.PageForm):
 
     @form.action('Cancel')
     def actionCancel(self, action, data):
-        annotations = IAnnotations(self.context)
+        if self.context.getLayout() == 'slideshare_view.html':
+            self.context.setLayout(self.context.getDefaultLayout())
         self.request.response.redirect(self.next_url)
 
 class GetSlideshareId(formbase.PageForm):
@@ -113,18 +111,14 @@ class GetSlideshareId(formbase.PageForm):
         self.settings = registry.forInterface(ISlideshareSettings)
         super(GetSlideshareId, self).__init__(*args, **kwargs)
 
-
-
     @property
     def next_url(self):
         url = self.context.absolute_url()
         url += '/view'
         return url
 
-
     @form.action('Submit')
     def actionSubmit(self, action, data):
-        url = self.context.absolute_url()
         if self.settings.api_key and self.settings.shared_secret:
             api = slideshare.SlideshareAPI(self.settings.api_key,
                 self.settings.shared_secret)
@@ -142,8 +136,36 @@ class GetSlideshareId(formbase.PageForm):
             msgtype = 'error'
         IStatusMessage(self.request).addStatusMessage(msg, type=msgtype)
 
+    @form.action('Cancel')
+    def actionCancel(self, action, data):
+        if self.context.getLayout() == 'slideshare_view.html':
+            self.context.setLayout(self.context.getDefaultLayout())
+        self.request.response.redirect(self.next_url)
+
+class RemoveSlideshareId(formbase.PageForm):
+    form_fields = form.FormFields(IGetSlideshareIdSchema)
+    label = _(u'Remove the Slideshare id from content')
+    description = _(u'If the slideshow was deleted from slideshare you can remove the id')
+
+    @property
+    def next_url(self):
+        url = self.context.absolute_url()
+        url += '/view'
+        return url
+
+    @form.action('Remove')
+    def actionSubmit(self, action, data):
+        annotations = IAnnotations(self.context)
+        if annotations.get(KEY):
+            annotations[KEY] = None
+            msg = _(u"Slideshare id removed")
+            IStatusMessage(self.request).addStatusMessage(msg, type='info')
+        else:
+            msg = _(u"object does not have a slideshare id")
+            IStatusMessage(self.request).addStatusMessage(msg, type='error')
+        self.context.setLayout(self.context.getDefaultLayout())
+        self.request.response.redirect(self.next_url)
 
     @form.action('Cancel')
     def actionCancel(self, action, data):
-        annotations = IAnnotations(self.context)
         self.request.response.redirect(self.next_url)
