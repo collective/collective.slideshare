@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.1'
+version = '0.2'
 
 long_description = (
     read('README.rst')
@@ -44,8 +44,13 @@ setup(name='collective.slideshare',
         'Framework :: Plone',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU General Public License (GPL)',
+        "Framework :: Plone :: 4.2",
+        "Framework :: Plone :: 4.3",
+        "Programming Language :: Python",
+        'Development Status :: 4 - Beta',
+        'Operating System :: OS Independent',
         ],
-      keywords='',
+      keywords='slideshare api',
       author='Christian Ledermann',
       author_email='christian.ledermann@gmail.com',
       url='http://plone.org/products/collective.slideshare',
