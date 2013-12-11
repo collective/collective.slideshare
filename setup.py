@@ -19,11 +19,6 @@ long_description = (
     + '\n' +
     read('docs', 'CHANGES.txt')
     + '\n' +
-    'Detailed Documentation\n'
-    '**********************\n'
-    + '\n' +
-    read('collective', 'slideshare', 'README.txt')
-    + '\n' +
     'Contributors\n'
     '************\n'
     + '\n' +
@@ -42,7 +37,6 @@ setup(name='collective.slideshare',
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
         'Framework :: Plone',
-        'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU General Public License (GPL)',
         "Framework :: Plone :: 4.2",
         "Framework :: Plone :: 4.3",
