@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.3 (2013/12/11)
+----------------
+
+- add action `Remove Slideshare Annotation`
+
 0.2 (2013/12/11)
 ----------------
 
