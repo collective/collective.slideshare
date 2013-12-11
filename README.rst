@@ -49,8 +49,14 @@ Slideshow was removed from SlideShare_
 
 When a presentation is removed from SlideShare_ you can simply change the
 view back to the default view. However this does not remove the id from
-the annotation. To remove the annotation you have to manually append
-`@@slideshare_removeid.html` to your objects url.
+the annotation. To remove the annotation you have to call
+`Remove Slideshare Annotation` in the `Actions` menu
+or manually append `@@slideshare_removeid.html` to your objects url.
+
+This does *NOT* delete the presentation from SlideShare.
+It is not recommended to remove the id if you do not delete the
+presentation from SlideShare, because if you change the view back to
+`SlideShare View` it will result in another upload of the presentation.
 
 
 - Code repository: https://github.com/collective/collective.slideshare

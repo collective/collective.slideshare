@@ -145,7 +145,12 @@ class GetSlideshareId(formbase.PageForm):
 class RemoveSlideshareId(formbase.PageForm):
     form_fields = form.FormFields(IGetSlideshareIdSchema)
     label = _(u'Remove the Slideshare id from content')
-    description = _(u'If the slideshow was deleted from slideshare you can remove the id')
+    description = _(u'''If the slideshow was deleted from SlideShare you
+    can remove the id. This does NOT delete the presentation from SlideShare.
+    It is not recommended to remove the id if you do not delete the
+    presentation from SlideShare, because if you change the view back to
+    'SlideShare View' it will result in another upload of the presentation.
+    ''')
 
     @property
     def next_url(self):
