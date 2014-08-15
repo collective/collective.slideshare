@@ -5,6 +5,7 @@ from zope.component import getUtility
 
 from Products.Five import BrowserView
 from Products.ATContentTypes.interfaces import IATLink, IATFile
+from Products.statusmessages.interfaces import IStatusMessage
 from plone.registry.interfaces import IRegistry
 
 from collective.slideshare.config import KEY, SLIDES_MIMETYPES
